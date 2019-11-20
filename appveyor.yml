@@ -46,6 +46,7 @@ after_build:
 
 test_script:
   - cmake --build msvc\csound-vs --target csdtests
+  - cmake --build msvc\csound-vs --target RUN_TESTS
 
 artifacts:
   - path: csound-windows_x86_64-*.zip
