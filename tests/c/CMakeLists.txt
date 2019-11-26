@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 
+# FIXME currently require static lib, this should include build static csound condition
 if(BUILD_TESTS)
 
     add_executable(unittests
@@ -27,11 +28,13 @@ if(BUILD_TESTS)
     else ()
         find_package(GTest REQUIRED)
 
+        set(CMAKE_CXX_FLAGS "-fpermissive -Wwrite-strings -std=c++0x")
+
         target_include_directories(unittests PRIVATE
             ${GTEST_INCLUDE_DIRS})
 
         target_link_libraries(unittests PRIVATE
-            GTest::GTest GTest::Main ${CSOUNDLIB_STATIC})
+            ${GTEST_BOTH_LIBRARIES} ${CSOUNDLIB_STATIC})
     endif()
 
     add_test(NAME AllTests COMMAND unittests)
